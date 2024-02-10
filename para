@@ -1,0 +1,36 @@
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+# Define an array of messages
+$messages = @(
+    "     Para!     ",
+    "     Oh Pah Chiça!!     ",
+    "     Vou dizer à Mãe!     ",
+    "     Opah Para lá     ";
+)
+
+# Create a form
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "Interactive Window"
+$form.Size = New-Object System.Drawing.Size(600,550)
+
+# Create a picture box
+$pictureBox = New-Object System.Windows.Forms.PictureBox
+$pictureBox.ImageLocation = "https://iili.io/J1NUFzx.md.png"
+$pictureBox.SizeMode = "AutoSize"
+$pictureBox.Location = New-Object System.Drawing.Point(50,50)
+
+# Add the picture box to the form
+$form.Controls.Add($pictureBox)
+
+# Add click event handler for the picture box
+$pictureBox.Add_Click({
+    # Choose a random message from the array
+    $randomMessage = $messages | Get-Random
+    
+    # Show the random message in a message box
+    [System.Windows.Forms.MessageBox]::Show($randomMessage, "Attention", "OK", [System.Windows.Forms.MessageBoxIcon]::Information)
+})
+
+# Show the form
+$form.ShowDialog() | Out-Null
